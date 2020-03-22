@@ -1,12 +1,11 @@
 const express = require('express')
 const app = express()
 
-app.get('/', (req, res) => {
-    const onur = {
-        name: "Onur",
-        surname: "Yurteri"
-    }
-    res.json(onur)
-})
+const AppRoutes = require('./app/routes')
+const UserRoutes = require('./user/routes')
+
+
+app.use('/app', AppRoutes)
+app.use('/user', UserRoutes)
 
 app.listen(3000)
