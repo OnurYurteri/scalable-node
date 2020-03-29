@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const helmet = require('helmet')
 
@@ -11,4 +12,4 @@ const UserRoutes = require('./user/routes')
 app.use('/app', AppRoutes)
 app.use('/user', UserRoutes)
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
