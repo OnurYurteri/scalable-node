@@ -1,6 +1,6 @@
 const UserService = require('./service');
 
-exports.getUsers = async function getUsers(req, res) {
+exports.getUsers = async (req, res) => {
   // Validate request parameters, queries using express-validator
   // Log authorized user
   console.log(req.authData);

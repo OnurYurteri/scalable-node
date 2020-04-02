@@ -1,6 +1,6 @@
 const AppService = require('./service');
 
-exports.login = async function login(req, res) {
+exports.login = async (req, res) => {
   // Validate request parameters, queries using express-validator
 
   try {

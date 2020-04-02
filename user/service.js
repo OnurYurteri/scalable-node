@@ -8,7 +8,7 @@ const userObj = new User({
   surname: 'Yurteri',
 });
 
-exports.getUsers = async function getUsers(query, page, limit) {
+exports.getUsers = async (query, page, limit) => {
   try {
     //const users = await User.find(query)
     return userObj;
