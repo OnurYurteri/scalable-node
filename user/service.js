@@ -1,9 +1,12 @@
 const User = require('./model');
 
-const userObj = {
+const userObj = new User({
+  username: 'onuryurteri',
+  email: 'yurterionur@gmail.com',
+  pass: 'passw0rd',
   name: 'Onur',
   surname: 'Yurteri',
-};
+});
 
 exports.getUsers = async function getUsers(query, page, limit) {
   try {
