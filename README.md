@@ -5,10 +5,16 @@
 
 ### Includes
 
-- [ExpressJS](https://expressjs.com)
 - [NodeJS](https://nodejs.org/en/)
+- [ExpressJS](https://expressjs.com)
+- [Helmet](https://helmetjs.github.io/)
 - [Mongoose](http://mongoosejs.com/docs/guide.html)
 - [Nodemon](https://nodemon.io/)
+- [ESLint](https://eslint.org/)
+- [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)
+- [prettier-eslint](https://github.com/prettier/prettier-eslint)
+- [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
+- [dotenv](https://github.com/motdotla/dotenv)
 
 ### Installing
 
