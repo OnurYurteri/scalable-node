@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "debug": "nodemon --inspect server.js"
   },
   "author": "Onur Yurteri",
   "license": "MIT",

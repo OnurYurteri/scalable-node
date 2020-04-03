@@ -22,5 +22,6 @@ exports.verifyToken = async (req, res, next) => {
 };
 
 exports.createToken = async (user) => {
-  return jwt.sign(user, process.env.JWT_SECRET, { algorithm: 'HS256', expiresIn: 30 });
+  const exprsInSec = parseInt(process.env.JWT_TOKEN_EXPR_SEC, 10) || 30;
+  return jwt.sign(user, process.env.JWT_SECRET, { algorithm: 'HS256', expiresIn: exprsInSec });
 };
