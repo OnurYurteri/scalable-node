@@ -15,9 +15,6 @@
 ```bash
 git clone https://github.com/OnurYurteri/node-express-boilerplate.git
 cd node-express-boilerplate
-```
-
-```node
 npm ci
 ```
 
