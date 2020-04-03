@@ -3,6 +3,7 @@ const UserService = require('./service');
 exports.getUsers = async (req, res) => {
   // Validate request parameters, queries using express-validator
   // Log authorized user
+  // eslint-disable-next-line no-console
   console.log(req.authData);
 
   const page = req.params.page ? req.params.page : 1;

@@ -8,9 +8,10 @@ const userObj = new User({
   surname: 'Yurteri',
 });
 
+// eslint-disable-next-line no-unused-vars
 exports.getUsers = async (query, page, limit) => {
   try {
-    //const users = await User.find(query)
+    // const users = await User.find(query)
     return userObj;
   } catch (e) {
     // Log Errors
