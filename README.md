@@ -1,4 +1,4 @@
 ## Upcoming
 
-- [] Add logging mechanism
-- [] Add mongo dao
+- [ ] Add logging mechanism
+- [ ] Add mongo dao
