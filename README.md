@@ -2,6 +2,11 @@
 
 - [ ] Add logging mechanism
 - [ ] Add mongo dao
+- [ ] Dockerize app
+- [ ] Ready to loadbalancing?
+- [ ] Queuing mechanism (Kafka/RabbitMQ)?
+- [ ] Shared cache (Hazelcast/Redis/Memcached)?
+- [ ] Analytics?
 
 ### Includes
 
