@@ -2,6 +2,7 @@
 
 - [ ] Add logging mechanism
 - [ ] Add mongo dao
+- [ ] Validator
 - [ ] Dockerize app
 - [ ] Ready to loadbalancing?
 - [ ] Queuing mechanism (Kafka/RabbitMQ)?
