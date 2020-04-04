@@ -1,6 +1,8 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
+const exprsInSec = parseInt(process.env.JWT_TOKEN_EXPR_SEC, 10) || 30;
+
 exports.verifyToken = async (req, res, next) => {
   const bearerHeader = req.headers['x-api-token'];
 
@@ -22,6 +24,5 @@ exports.verifyToken = async (req, res, next) => {
 };
 
 exports.createToken = async (user) => {
-  const exprsInSec = parseInt(process.env.JWT_TOKEN_EXPR_SEC, 10) || 30;
   return jwt.sign(user, process.env.JWT_SECRET, { algorithm: 'HS256', expiresIn: exprsInSec });
 };
