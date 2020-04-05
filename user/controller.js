@@ -1,10 +1,11 @@
 const UserService = require('./service');
+const logger = require('../logger/service').user;
 
 exports.getUsers = async (req, res) => {
   // Validate request parameters, queries using express-validator
   // Log authorized user
   // eslint-disable-next-line no-console
-  console.log(req.authData);
+  logger.info('controller:getUsers::{}');
 
   const page = req.params.page ? req.params.page : 1;
   const limit = req.params.limit ? req.params.limit : 10;
