@@ -1,6 +1,6 @@
 ## Upcoming
 
-- [ ] Add logging mechanism
+- [x] Add logging mechanism
 - [ ] Add mongo dao
 - [ ] Validator
 - [ ] Dockerize app
@@ -9,13 +9,15 @@
 - [ ] Shared cache (Hazelcast/Redis/Memcached)?
 - [ ] Analytics?
 
-### Includes
+### Made Out Of
 
 - [NodeJS](https://nodejs.org/en/)
 - [ExpressJS](https://expressjs.com)
 - [Helmet](https://helmetjs.github.io/)
 - [Mongoose](http://mongoosejs.com/docs/guide.html)
 - [Nodemon](https://nodemon.io/)
+- [Morgan](https://github.com/expressjs/morgan)
+- [Winston](https://github.com/winstonjs/winston)
 - [ESLint](https://eslint.org/)
 - [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)
 - [prettier-eslint](https://github.com/prettier/prettier-eslint)
@@ -41,7 +43,7 @@ npm ci
 ### Run at local server
 
 ```bash
-mv .env.example .env
+cp .env.example .env
 
 npm run start
 http://localhost:3000/
