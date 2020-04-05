@@ -3,7 +3,7 @@
 - [x] Add logging mechanism
 - [ ] Add mongo dao
 - [ ] Validator
-- [ ] Dockerize app
+- [x] Dockerize app
 - [ ] Ready to loadbalancing?
 - [ ] Queuing mechanism (Kafka/RabbitMQ)?
 - [ ] Shared cache (Hazelcast/Redis/Memcached)?
