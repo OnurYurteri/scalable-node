@@ -15,6 +15,14 @@ const UserRoutes = require('./user/routes');
 
 app.use('/app', AppRoutes);
 app.use('/user', UserRoutes);
+app.use('/', (req, res) => {
+  return res
+    .status(200)
+    .json({
+      status: 200,
+      message: `${process.env.INSTANCE ? process.env.INSTANCE : 'development'}`,
+    });
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
