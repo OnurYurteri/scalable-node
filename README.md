@@ -61,7 +61,7 @@ npm run start
 http://localhost:3000/
 ```
 
-### Run with Load-balancing
+### Run with Nginx (Load-balanced)
 
 ```bash
 cd scalable-node
