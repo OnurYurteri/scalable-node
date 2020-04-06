@@ -4,7 +4,7 @@
 - [ ] Add mongo dao
 - [ ] Validator
 - [x] Dockerize app
-- [ ] Ready to loadbalancing?
+- [x] Ready to loadbalancing?
 - [ ] Queuing mechanism (Kafka/RabbitMQ)?
 - [ ] Shared cache (Hazelcast/Redis/Memcached)?
 - [ ] Analytics?
@@ -43,8 +43,29 @@ npm ci
 ### Run at local server
 
 ```bash
+cd scalable-node/src
 cp .env.example .env
 
 npm run start
 http://localhost:3000/
+```
+
+### Run with Docker
+
+```bash
+cd scalable-node
+docker build -t nodeapp:1.0 .
+docker run --publish 3000:3000 nodeapp:1.0
+
+npm run start
+http://localhost:3000/
+```
+
+### Run with Load-balancing
+
+```bash
+cd scalable-node
+docker build -t nodeapp:1.0 .
+docker-compose up
+http://localhost:8080/
 ```
