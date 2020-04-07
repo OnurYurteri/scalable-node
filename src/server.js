@@ -23,18 +23,15 @@ app.use('/user', UserRoutes);
 app.use('/', (req, res) => {
   const message = {
     node: `${process.env.INSTANCE ? process.env.INSTANCE : 'development'}`,
-    headers: JSON.stringify(req.headers)
-  }
-  return res
-    .status(200)
-    .json({
-      status: 200,
-      message: message,
-    });
+    headers: JSON.stringify(req.headers),
+  };
+  return res.status(200).json({
+    status: 200,
+    message: message,
+  });
 });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Listening on port ${port}..`);
+  logger.info(`Server started to listening on port ${port}..`);
 });
