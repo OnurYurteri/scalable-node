@@ -2,7 +2,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const logger = require('../logger/service').app;
 
-const exprsInSec = parseInt(process.env.JWT_TOKEN_EXPR_SEC, 10) || 300;
+const exprsInSec = parseInt(process.env.JWT_TOKEN_EXPR_SEC, 10) || 30;
 
 exports.verifyTokenMiddleware = async (req, res, next) => {
   logger.info(

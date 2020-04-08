@@ -2,30 +2,42 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const logger = require('../logger/service').db;
 
-const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOSTNAME, MONGO_PORT, MONGO_DB_NAME } = process.env;
+const {
+  MONGO_INITDB_ROOT_USERNAME,
+  MONGO_INITDB_ROOT_PASSWORD,
+  MONGO_HOSTNAME,
+  MONGO_PORT,
+  MONGO_INITDB_DATABASE,
+} = process.env;
 
-const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB_NAME}?authSource=admin`;
+const url = `mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_INITDB_DATABASE}?authSource=admin`;
 
 const connection = mongoose.connection;
 
 connection.on('connecting', () => {
-  logger.info('service::onConnecting::Trying to connect to mongo');
+  logger.info(
+    `service::onConnecting::Trying to connect to mongo on ${MONGO_HOSTNAME}:${MONGO_PORT}`
+  );
 });
 
 connection.on('error', (err) => {
-  logger.error(`service::onError::error::${JSON.stringify(err)}::{}`);
+  logger.error(
+    `service::onError::error::${JSON.stringify(
+      err
+    )}::Error from mongo on ${MONGO_HOSTNAME}:${MONGO_PORT}`
+  );
 });
 connection.on('connected', () => {
-  logger.info('service::onConnected::Connected to mongo');
+  logger.info(`service::onConnected::Connected to mongo on ${MONGO_HOSTNAME}:${MONGO_PORT}`);
 });
 connection.once('open', () => {
-  logger.info('service::onOpen::Connection opened to mongo');
+  logger.info(`service::onOpen::Connection opened to mongo on ${MONGO_HOSTNAME}:${MONGO_PORT}`);
 });
 connection.on('reconnected', () => {
-  logger.info('service::onReconnect::Reconnected to mongo');
+  logger.info(`service::onReconnect::Reconnected to mongo on ${MONGO_HOSTNAME}:${MONGO_PORT}`);
 });
 connection.on('disconnected', () => {
-  logger.warn('service::disconnected::Disconnected from mongo');
+  logger.warn(`service::disconnected::Disconnected from mongo on ${MONGO_HOSTNAME}:${MONGO_PORT}`);
   this.connect();
 });
 

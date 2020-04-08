@@ -54,8 +54,8 @@ http://localhost:3000/
 
 ```bash
 cd scalable-node
-docker build -t nodeapp:1.0 .
-docker run --publish 3000:3000 nodeapp:1.0
+docker build -t scalable-node_src:1.0 .
+docker run --publish 3000:3000 scalable-node_src:1.0
 
 npm run start
 http://localhost:3000/
@@ -65,7 +65,7 @@ http://localhost:3000/
 
 ```bash
 cd scalable-node
-docker build -t nodeapp:1.0 .
+docker build -t scalable-node_src:1.0 .
 docker-compose up
 http://localhost:8080/
 ```

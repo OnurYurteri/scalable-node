@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   nginx:
@@ -12,34 +12,48 @@ services:
       - node2
       - node3
     ports:
-      - '8080:80'
+      - "8080:80"
     networks:
       - app-network
 
   node1:
-    image: nodeapp:1.0
+    image: scalable-node_src:1.0
     ports:
-      - '3000:3000'
+      - "3000:3000"
+    env_file: ./src/.env
     environment:
       - INSTANCE=node1
     networks:
       - app-network
 
   node2:
-    image: nodeapp:1.0
+    image: scalable-node_src:1.0
     ports:
-      - '3001:3000'
+      - "3001:3000"
+    env_file: ./src/.env
     environment:
       - INSTANCE=node2
     networks:
       - app-network
 
   node3:
-    image: nodeapp:1.0
+    image: scalable-node_src:1.0
     ports:
-      - '3002:3000'
+      - "3002:3000"
+    env_file: ./src/.env
     environment:
       - INSTANCE=node3
+    networks:
+      - app-network
+
+  database:
+    image: "mongo"
+    env_file: ./src/.env
+    volumes:
+      - ./.mongo/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo-volume:/data/db
+    ports:
+      - "27017-27019:27017-27019"
     networks:
       - app-network
 

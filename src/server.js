@@ -11,14 +11,13 @@ const logger = require('./logger/service').server;
 const AppRoutes = require('./app/routes');
 const UserRoutes = require('./user/routes');
 
+const app = express();
+app.use(helmet());
+app.set('trust proxy', true);
 morgan.token('remote-addr', (req) => {
   return req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 });
-
-const app = express();
-app.use(helmet());
 app.use(morgan('short', { stream: logger.stream }));
-app.set('trust proxy', true);
 
 app.use('/app', AppRoutes);
 app.use('/user', UserRoutes);
