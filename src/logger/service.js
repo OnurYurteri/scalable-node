@@ -1,10 +1,20 @@
 const { transports, createLogger, format } = require('winston');
 const appRoot = require('app-root-path');
 
+/*
+LOGGING FORMAT
+WHERE::WHAT::PARAM::paramValue::MESSAGE
+WHERE['service', 'controller', 'routes', 'model']: Basically filename
+WHAT: Function name
+PARAM/paramValue: Whatever you want, as much as you want
+MESSAGE: ALWAYS in the end
+eg: logger.info('service::myFunction::variable1::value1::variable2::value2::Something happened, and this is my explanation')
+*/
+
 const winstonOptions = {
   file: {
     level: 'info',
-    // filename: `${appRoot}/logs/app.log`,
+    // filename: `${appRoot}/logs/app.log`, //Insert this on 'exports'
     format: format.combine(format.timestamp(), format.json()),
     handleExceptions: true,
     json: true,
@@ -40,6 +50,11 @@ serverLogger.stream = {
 };
 
 exports.server = serverLogger;
+
+exports.db = getLogger({
+  file: { ...winstonOptions.file, filename: `${appRoot}/_logs/db.log` },
+  console: { ...winstonOptions.console },
+});
 
 exports.app = getLogger({
   file: { ...winstonOptions.file, filename: `${appRoot}/_logs/app.log` },

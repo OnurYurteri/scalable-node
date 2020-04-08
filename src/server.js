@@ -2,21 +2,23 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const loggerService = require('./logger/service');
 
-const app = express();
-const logger = loggerService.server;
+/* Internal Services */
+const db = require('./db/service');
+const logger = require('./logger/service').server;
 
-app.use(helmet());
-app.set('trust proxy', true);
-
-morgan.token('remote-addr', function (req) {
-  return req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-});
-app.use(morgan('short', { stream: logger.stream }));
-
+/* Routes */
 const AppRoutes = require('./app/routes');
 const UserRoutes = require('./user/routes');
+
+morgan.token('remote-addr', (req) => {
+  return req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+});
+
+const app = express();
+app.use(helmet());
+app.use(morgan('short', { stream: logger.stream }));
+app.set('trust proxy', true);
 
 app.use('/app', AppRoutes);
 app.use('/user', UserRoutes);
@@ -27,11 +29,13 @@ app.use('/', (req, res) => {
   };
   return res.status(200).json({
     status: 200,
-    message: message,
+    message,
   });
 });
 
+db.connect();
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  logger.info(`Server started to listening on port ${port}..`);
+  logger.info(`server::listen::Server started to listening on port ${port}..`);
 });
