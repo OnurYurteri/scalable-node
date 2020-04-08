@@ -1,7 +1,7 @@
 ## Upcoming
 
 - [x] Add logging mechanism
-- [ ] Add mongo dao
+- [x] Add mongo dao
 - [ ] Validator
 - [x] Dockerize app
 - [x] Ready to loadbalancing?
