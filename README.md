@@ -1,4 +1,16 @@
-## Upcoming
+## What is it?
+
+- It's a experimental backend boilerplate for node
+- Aims to create ground-basis/examples for
+  - Loose coupled modules that could be converted to standalone app (Micro-service 101)
+  - Pluggable logging module
+  - Implementation of authentication (JWT)
+  - Strategy for
+    - Building and deploying app (Docker/docker-compose)
+    - Scaling (Loadbalancing, caching etc)
+    - Consistent contributions (Linters/Prettiers)
+
+### Upcoming
 
 - [x] Add logging mechanism
 - [x] Add mongo dao
@@ -61,7 +73,7 @@ npm run start
 http://localhost:3000/
 ```
 
-### Run with Nginx (Load-balanced)
+### With docker-compose (Multiple instance, nginx, mongoDB)
 
 ```bash
 cd scalable-node
