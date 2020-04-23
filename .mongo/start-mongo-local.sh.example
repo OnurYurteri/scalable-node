@@ -1,0 +1,1 @@
+docker run --name mongo-local -v ${YOUR_PATH}/scalable-node/mongo-volume:/data/db -e MONGO_INITDB_ROOT_USERNAME=${YOUR_USERNAME} -e MONGO_INITDB_ROOT_PASSWORD=${YOUR_PASSWORD} -p 27017-27019:27017-27019 -d mongo

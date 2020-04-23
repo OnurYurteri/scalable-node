@@ -19,19 +19,28 @@ exports.verifyTokenMiddleware = async (req, res, next) => {
 
   req.token = bearerHeader;
 
-  jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
+  jwt.verify(req.token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       logger.info('service::verifyTokenMiddleware::Token unauthorized');
       res.sendStatus(401);
       return;
     }
-    req.authData = authData;
+    req.user = user;
     logger.info('service::verifyTokenMiddleware::Authorized');
     next();
   });
 };
 
 exports.createToken = async (user) => {
+  delete user.pass;
   logger.info(`service::createToken::user::${JSON.stringify(user)}::{}`);
-  return jwt.sign(user, process.env.JWT_SECRET, { algorithm: 'HS256', expiresIn: exprsInSec });
+  try {
+    return jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
+      algorithm: 'HS256',
+      expiresIn: exprsInSec,
+    });
+  } catch (e) {
+    logger.error(`service::createToken::user::${JSON.stringify(user)}::message::${e.message}::{}`);
+    throw e;
+  }
 };

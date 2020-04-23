@@ -12,6 +12,7 @@ const AppRoutes = require('./app/routes');
 const UserRoutes = require('./user/routes');
 
 const app = express();
+app.use(express.json());
 app.use(helmet());
 app.set('trust proxy', true);
 morgan.token('remote-addr', (req) => {
@@ -22,8 +23,15 @@ app.use(morgan('short', { stream: logger.stream }));
 app.use('/app', AppRoutes);
 app.use('/user', UserRoutes);
 app.use('/', (req, res) => {
+  if (req.url !== '/') {
+    logger.warn(`server::requestUrl::${req.url}::Route is not supported!`);
+    return res.status(404).json({
+      status: 404,
+      message: 'Route is not supported!',
+    });
+  }
   const message = {
-    node: `${process.env.INSTANCE ? process.env.INSTANCE : 'development'}`,
+    node: `${process.env.INSTANCE ? process.env.INSTANCE : 'standalone'}`,
     headers: JSON.stringify(req.headers),
   };
   return res.status(200).json({
