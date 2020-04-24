@@ -17,6 +17,7 @@ const winstonOptions = {
     // filename: `${appRoot}/logs/app.log`, //Insert this on 'exports'
     format: format.combine(format.timestamp(), format.json()),
     handleExceptions: true,
+    humanReadableUnhandledException: true,
     json: true,
     maxsize: 5242880, // 5MB
     maxFiles: 5,
@@ -24,6 +25,7 @@ const winstonOptions = {
   },
   console: {
     level: 'debug',
+    format: format.combine(format.timestamp(), format.json()),
     handleExceptions: true,
     json: false,
     colorize: true,

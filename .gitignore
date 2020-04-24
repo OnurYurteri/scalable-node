@@ -4,3 +4,4 @@ node_modules
 _logs
 init-mongo.js
 mongo-volume
+.mongo/start-mongo-local.sh

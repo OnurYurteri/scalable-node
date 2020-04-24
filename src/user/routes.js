@@ -13,4 +13,8 @@ router.get(
   UserController.getUsers
 );
 
+router.post('/create', db.checkConnectionMiddleware, UserController.create);
+
+router.post('/login', db.checkConnectionMiddleware, UserController.login);
+
 module.exports = router;
