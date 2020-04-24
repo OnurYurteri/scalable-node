@@ -2,15 +2,16 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const logger = require('../logger/service').db;
 
-let {
+const {
   MONGO_INITDB_ROOT_USERNAME,
   MONGO_INITDB_ROOT_PASSWORD,
-  MONGO_HOSTNAME,
   MONGO_PORT,
   MONGO_INITDB_DATABASE,
 } = process.env;
 
-/*Variable 'INSTANCE' is set by docker-compose
+let { MONGO_HOSTNAME } = process.env;
+
+/* Variable 'INSTANCE' is set by docker-compose
   IF exist: MONGO_HOSTNAME will be connected, set MONGO_HOSTNAME to name of your mongo 'service' in docker-compose.yml
   IF NOT exist: We're not running with docker-compose or we're on development, set mongo MONGO_HOSTNAME_STANDALONE to 127.0.0.1 or wherever you want it to connect
   You can start your local mongo with docker using same volume, check: .mongo/start-local-mongo.sh.example

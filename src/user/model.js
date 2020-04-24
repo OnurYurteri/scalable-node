@@ -27,12 +27,18 @@ UserSchema.pre('save', async function save(next) {
 
     return next();
   } catch (e) {
+    e.from = 'user_model_preSave';
     throw e;
   }
 });
 
 UserSchema.methods.passwordMatches = async function passwordMatches(password) {
-  return bcrypt.compare(password, this.pass);
+  try {
+    return bcrypt.compare(password, this.pass);
+  } catch (e) {
+    e.from = 'user_model_passwordMatches';
+    throw e;
+  }
 };
 
 const User = mongoose.model('User', UserSchema, userCollectionName);

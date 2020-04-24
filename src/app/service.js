@@ -32,15 +32,16 @@ exports.verifyTokenMiddleware = async (req, res, next) => {
 };
 
 exports.createToken = async (user) => {
-  delete user.pass;
-  logger.info(`service::createToken::user::${JSON.stringify(user)}::{}`);
+  const userObj = user.toJSON();
+  delete userObj.pass;
+  logger.info(`service::createToken::user::${JSON.stringify(userObj)}::{}`);
   try {
-    return jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
+    return jwt.sign(userObj, process.env.JWT_SECRET, {
       algorithm: 'HS256',
       expiresIn: exprsInSec,
     });
   } catch (e) {
-    logger.error(`service::createToken::user::${JSON.stringify(user)}::message::${e.message}::{}`);
+    e.from = 'app_service_createToken';
     throw e;
   }
 };
