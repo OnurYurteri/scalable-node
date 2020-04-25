@@ -32,7 +32,7 @@ exports.verifyTokenMiddleware = async (req, res, next) => {
 };
 
 exports.createToken = async (user) => {
-  const userObj = user.toJSON();
+  const userObj = user;
   delete userObj.pass;
   logger.info(`service::createToken::user::${JSON.stringify(userObj)}::{}`);
   try {
