@@ -30,6 +30,8 @@
 - [Nodemon](https://nodemon.io/)
 - [Morgan](https://github.com/expressjs/morgan)
 - [Winston](https://github.com/winstonjs/winston)
+- [Jest](https://github.com/facebook/jest)
+- [SuperTest](https://github.com/visionmedia/supertest)
 - [ESLint](https://eslint.org/)
 - [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)
 - [prettier-eslint](https://github.com/prettier/prettier-eslint)
@@ -46,11 +48,13 @@ npm ci
 
 ### Scripts
 
-| Script        | Description                                                             |
-| ------------- | ----------------------------------------------------------------------- |
-| npm run dev   | Starts development server at localhost:3000                             |
-| npm run debug | Starts debugging with [Inspector](https://nodejs.org/en/docs/inspector) |
-| npm run lint  | Run Eslint to find out linting issues.                                  |
+| Script             | Description                                                             |
+| ------------------ | ----------------------------------------------------------------------- |
+| npm run dev        | Starts development server at localhost:3000                             |
+| npm run debug      | Starts debugging with [Inspector](https://nodejs.org/en/docs/inspector) |
+| npm run lint       | Run Eslint to find out linting issues.                                  |
+| npm run test       | Run Jest to run tests.                                                  |
+| npm run test:watch | Run Jest to run tests on watch mode.                                    |
 
 ### Run at local server
 
@@ -69,7 +73,6 @@ cd scalable-node
 docker build -t scalable-node_src:1.0 .
 docker run --publish 3000:3000 scalable-node_src:1.0
 
-npm run start
 http://localhost:3000/
 ```
 
@@ -79,5 +82,7 @@ http://localhost:3000/
 cd scalable-node
 docker build -t scalable-node_src:1.0 .
 docker-compose up
+
+http://localhost/
 http://localhost:8080/
 ```
