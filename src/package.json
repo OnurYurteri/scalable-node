@@ -8,7 +8,9 @@
     "debug": "nodemon --inspect server.js",
     "lint": "eslint .",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
+    "test:coverage": "jest --coverage"
   },
   "author": "Onur Yurteri",
   "license": "MIT",

@@ -48,13 +48,15 @@ npm ci
 
 ### Scripts
 
-| Script             | Description                                                             |
-| ------------------ | ----------------------------------------------------------------------- |
-| npm run dev        | Starts development server at localhost:3000                             |
-| npm run debug      | Starts debugging with [Inspector](https://nodejs.org/en/docs/inspector) |
-| npm run lint       | Run Eslint to find out linting issues.                                  |
-| npm run test       | Run Jest to run tests.                                                  |
-| npm run test:watch | Run Jest to run tests on watch mode.                                    |
+| Script                | Description                                                             |
+| --------------------- | ----------------------------------------------------------------------- |
+| npm run dev           | Starts development server at localhost:3000                             |
+| npm run debug         | Starts debugging with [Inspector](https://nodejs.org/en/docs/inspector) |
+| npm run lint          | Run Eslint to find out linting issues.                                  |
+| npm run test          | Run Jest to run tests.                                                  |
+| npm run test:watch    | Run Jest to run tests on watch mode.                                    |
+| npm run test:debug    | Run Jest tests with [Inspector](https://nodejs.org/en/docs/inspector)   |
+| npm run test:coverage | Run [Istanbul](https://istanbul.js.org) for test coverage report        |
 
 ### Run at local server
 

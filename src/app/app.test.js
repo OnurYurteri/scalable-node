@@ -28,9 +28,10 @@ describe('Service', () => {
   it('Middleware verifies token', async () => {
     const jwtToken = await createToken(mockUser);
     const req = {
-      headers: {},
+      headers: {
+        'x-api-token': jwtToken,
+      },
     };
-    req.headers['x-api-token'] = jwtToken;
 
     await verifyTokenMiddleware(req, null, () => {
       const exprsInSec = parseInt(process.env.JWT_TOKEN_EXPR_SEC, 10) || 30;
@@ -40,5 +41,35 @@ describe('Service', () => {
       delete mockUser.pass;
       expect(req.user).toEqual(mockUser);
     });
+  });
+
+  it('Rejects request when token not given', async () => {
+    const req = {
+      headers: {},
+    };
+    const res = {
+      status: 200,
+      sendStatus: function sendStatus(set) {
+        this.status = set;
+      },
+    };
+    await verifyTokenMiddleware(req, res, null);
+    expect(res.status).toBe(403);
+  });
+
+  it('Rejects request when token is not valid', async () => {
+    const req = {
+      headers: {
+        'x-api-token': 'X',
+      },
+    };
+    const res = {
+      status: 200,
+      sendStatus: function sendStatus(set) {
+        this.status = set;
+      },
+    };
+    await verifyTokenMiddleware(req, res, null);
+    expect(res.status).toBe(401);
   });
 });

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const create = require('./service').create;
+const getUserWithEmail = require('./service').getUserWithEmail;
 
 const testDatabase = 'scalable-test-user';
 
@@ -23,6 +24,8 @@ function getMongoUrl() {
 
 const url = getMongoUrl();
 
+let testUser;
+
 beforeAll(async () => {
   mongoose.connect(url, {
     useCreateIndex: true,
@@ -30,6 +33,16 @@ beforeAll(async () => {
     useUnifiedTopology: true,
     auto_reconnect: true,
   });
+});
+
+beforeEach(() => {
+  testUser = {
+    username: 'test-uname',
+    email: 'test-email@a.com',
+    pass: 'test-pass',
+    name: 'test-name',
+    surname: 'test-surname',
+  };
 });
 
 afterEach(async () => {
@@ -42,13 +55,6 @@ afterAll(async () => {
 
 describe('Service', () => {
   it('Create user', async () => {
-    const testUser = {
-      username: 'test-uname',
-      email: 'test-email@a.com',
-      pass: 'test-pass',
-      name: 'test-name',
-      surname: 'test-surname',
-    };
     const returnedUser = await create(
       testUser.username,
       testUser.email,
@@ -65,5 +71,20 @@ describe('Service', () => {
     expect(returnedUser.pass).not.toBe(testUser.pass);
     expect(returnedUser.name).toBe(testUser.name);
     expect(returnedUser.surname).toBe(testUser.surname);
+  });
+
+  it('Get user with email', async () => {
+    const { id } = await create(
+      testUser.username,
+      testUser.email,
+      testUser.email,
+      testUser.pass,
+      testUser.name,
+      testUser.surname
+    );
+
+    const returnedUser = await getUserWithEmail(testUser.email);
+    // eslint-disable-next-line no-underscore-dangle
+    expect(returnedUser._id.toString()).toBe(id);
   });
 });
