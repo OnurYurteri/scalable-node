@@ -1,3 +1,8 @@
+.vscode
 node_modules
-npm-debug.log
+.env
 _logs
+npm-debug.log
+mongo-volume
+.mongo
+src/coverage

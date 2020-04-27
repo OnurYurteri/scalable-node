@@ -2,6 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const create = require('./service').create;
 const getUserWithEmail = require('./service').getUserWithEmail;
+const getUsers = require('./service').getUsers;
 
 const testDatabase = 'scalable-test-user';
 
@@ -45,15 +46,19 @@ beforeEach(() => {
   };
 });
 
-afterEach(async () => {
-  mongoose.connection.collections.User.drop();
-});
-
 afterAll(async () => {
   mongoose.connection.close();
 });
 
 describe('Service', () => {
+  let dropCollection = true;
+  afterEach(async () => {
+    if (dropCollection) {
+      mongoose.connection.collections.User.drop();
+    }
+    dropCollection = true;
+  });
+
   it('Create user', async () => {
     const returnedUser = await create(
       testUser.username,
@@ -73,10 +78,25 @@ describe('Service', () => {
     expect(returnedUser.surname).toBe(testUser.surname);
   });
 
+  it('Get users', async () => {
+    await create(testUser.username, testUser.email, testUser.pass, testUser.name, testUser.surname);
+    const users = await getUsers();
+    expect(users.length > 0).toBe(true);
+  });
+
+  it('Throws error when required is empty', async () => {
+    dropCollection = false;
+    expect.assertions(1);
+    try {
+      await create();
+    } catch (e) {
+      expect(e.from).toBe('user_service_create');
+    }
+  });
+
   it('Get user with email', async () => {
     const { id } = await create(
       testUser.username,
-      testUser.email,
       testUser.email,
       testUser.pass,
       testUser.name,
@@ -87,4 +107,51 @@ describe('Service', () => {
     // eslint-disable-next-line no-underscore-dangle
     expect(returnedUser._id.toString()).toBe(id);
   });
+});
+
+describe('Model', () => {
+  let mockUser;
+
+  beforeEach(async () => {
+    mockUser = await create(
+      testUser.username,
+      testUser.email,
+      testUser.pass,
+      testUser.name,
+      testUser.surname
+    );
+  });
+
+  afterEach(async () => {
+    mongoose.connection.collections.User.drop();
+  });
+
+  it('True when raw password matches with hashed one', async () => {
+    const result = await mockUser.passwordMatches(testUser.pass);
+    expect(result).toBe(true);
+  });
+
+  it('False when raw password doesnt match with hashed one', async () => {
+    const result = await mockUser.passwordMatches('X');
+    expect(result).toBe(false);
+  });
+
+  it('Hash password when pass changed', async () => {
+    const updatedPass = 'updated-pass';
+    mockUser.pass = updatedPass;
+    const updatedUser = await mockUser.save();
+
+    const result = await updatedUser.passwordMatches(updatedPass);
+    expect(result).toBe(true);
+  }, 10000);
+
+  it('Dont hash password when pass not changed', async () => {
+    const updatedName = 'updated-name';
+    mockUser.name = updatedName;
+    const updatedUser = await mockUser.save();
+
+    expect(updatedUser.name).toBe(updatedName);
+    const result = await updatedUser.passwordMatches(testUser.pass);
+    expect(result).toBe(true);
+  }, 10000);
 });

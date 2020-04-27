@@ -5,3 +5,4 @@ _logs
 init-mongo.js
 mongo-volume
 .mongo/start-mongo-local.sh
+src/coverage
