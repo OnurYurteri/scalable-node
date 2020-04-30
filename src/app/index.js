@@ -10,13 +10,18 @@ const UserRoutes = require('../user/routes');
 /* Configurations */
 const app = express();
 app.use(express.json());
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).send({ status: 400, message: err.message });
+  }
+  return next();
+});
 app.use(helmet());
 app.set('trust proxy', true);
 morgan.token('remote-addr', (req) => {
   return req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 });
 app.use(morgan('short', { stream: logger.stream }));
-
 // app.use('/app', AppRoutes);
 app.use('/user', UserRoutes);
 app.use('/', (req, res) => {

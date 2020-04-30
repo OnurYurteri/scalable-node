@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../db/service');
 const AppService = require('../app/service');
+const validation = require('./validation');
 
 const router = express.Router();
 
@@ -13,8 +14,20 @@ router.get(
   UserController.getUsers
 );
 
-router.post('/create', db.checkConnectionMiddleware, UserController.create);
+router.post(
+  '/create',
+  validation.create,
+  validation.resolve,
+  db.checkConnectionMiddleware,
+  UserController.create
+);
 
-router.post('/login', db.checkConnectionMiddleware, UserController.login);
+router.post(
+  '/login',
+  validation.login,
+  validation.resolve,
+  db.checkConnectionMiddleware,
+  UserController.login
+);
 
 module.exports = router;
