@@ -14,7 +14,8 @@ eg: logger.info('service::myFunction::variable1::value1::variable2::value2::Some
 const winstonOptions = {
   file: {
     level: 'info',
-    // filename: `${appRoot}/logs/app.log`, //Insert this on 'exports'
+    /* Insert this on 'exports'
+    // filename: `${appRoot}/logs/domain.log`, */
     format: format.combine(format.timestamp(), format.json()),
     handleExceptions: true,
     humanReadableUnhandledException: true,
