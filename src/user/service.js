@@ -3,7 +3,9 @@ const User = require('./model');
 
 // eslint-disable-next-line no-unused-vars
 exports.getUsers = async (query, page, limit) => {
-  logger.info(`service::getUsers::query::${query}::page::${page}::limit::${limit}::{}`);
+  logger.info(
+    `service::getUsers::query::${JSON.stringify(query)}::page::${page}::limit::${limit}::{}`
+  );
   try {
     const users = await User.find(query);
     return users;

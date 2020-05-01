@@ -3,6 +3,33 @@ const jwt = require('jsonwebtoken');
 const logger = require('../logger/service').app;
 
 const exprsInSec = parseInt(process.env.JWT_TOKEN_EXPR_SEC, 10) || 30;
+const { NODE_ENV } = process.env;
+
+exports.defaultPathHandler = (req, res) => {
+  if (req.url === '/' && NODE_ENV === 'development') {
+    const message = {
+      node: `${process.env.INSTANCE ? process.env.INSTANCE : 'standalone'}`,
+      headers: JSON.stringify(req.headers),
+    };
+    return res.status(200).json({
+      status: 200,
+      message,
+    });
+  }
+
+  logger.warn(`server::requestUrl::${req.url}::Route is not supported!`);
+  return res.status(404).json({
+    status: 404,
+    message: 'Route is not supported!',
+  });
+};
+
+exports.invalidRequestBodyMiddleware = (err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).send({ status: 400, message: err.message });
+  }
+  return next();
+};
 
 exports.verifyTokenMiddleware = async (req, res, next) => {
   logger.info(

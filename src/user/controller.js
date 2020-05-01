@@ -53,7 +53,7 @@ exports.getUsers = async (req, res) => {
   // Validate request parameters, queries using express-validator
   // Log authorized user
   // eslint-disable-next-line no-console
-  logger.info(`controller::getUsers::reqQuery::${req.query}::{}`);
+  logger.info(`controller::getUsers::reqQuery::${JSON.stringify(req.query)}::{}`);
 
   const page = req.query.page ? req.query.page : 1;
   const limit = req.query.limit ? req.query.limit : 10;
