@@ -17,7 +17,9 @@ exports.defaultPathHandler = (req, res) => {
     });
   }
 
-  logger.warn(`server::requestUrl::${req.url}::Route is not supported!`);
+  logger.warn(
+    `service::defaultPathHandler::method::${req.method}::requestUrl::${req.url}::Route is not supported!`
+  );
   return res.status(404).json({
     status: 404,
     message: 'Route is not supported!',

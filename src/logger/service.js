@@ -40,30 +40,25 @@ const getLogger = (options) => {
   });
 };
 
-const serverLogger = getLogger({
-  file: { ...winstonOptions.file, filename: `${appRoot}/_logs/server.log` },
+const appLogger = getLogger({
+  file: { ...winstonOptions.file, filename: `${appRoot}/logs/app.log` },
   console: { ...winstonOptions.console },
 });
 
-serverLogger.stream = {
+appLogger.stream = {
   write: (message) => {
-    serverLogger.info(message);
+    appLogger.info(message);
   },
 };
 
-exports.server = serverLogger;
+exports.app = appLogger;
 
 exports.db = getLogger({
-  file: { ...winstonOptions.file, filename: `${appRoot}/_logs/db.log` },
-  console: { ...winstonOptions.console },
-});
-
-exports.app = getLogger({
-  file: { ...winstonOptions.file, filename: `${appRoot}/_logs/app.log` },
+  file: { ...winstonOptions.file, filename: `${appRoot}/logs/db.log` },
   console: { ...winstonOptions.console },
 });
 
 exports.user = getLogger({
-  file: { ...winstonOptions.file, filename: `${appRoot}/_logs/user.log` },
+  file: { ...winstonOptions.file, filename: `${appRoot}/logs/user.log` },
   console: { ...winstonOptions.console },
 });

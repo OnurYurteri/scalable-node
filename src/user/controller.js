@@ -4,6 +4,7 @@ const logger = require('../logger/service').user;
 
 exports.create = async (req, res) => {
   logger.debug(`controller::create::requestBody::${JSON.stringify(req.body)}::{}`);
+  logger.info(`controller::create::email::${JSON.stringify(req.body.email)}::{}`);
   try {
     const user = await UserService.create(
       req.body.username,
@@ -25,6 +26,7 @@ exports.create = async (req, res) => {
 exports.login = async (req, res) => {
   // Validate request parameters, queries using express-validator
   logger.debug(`controller::login::requestBody::${JSON.stringify(req.body)}::{}`);
+  logger.info(`controller::login::email::${req.body.email}::{}`);
   try {
     const user = await UserService.getUserWithEmail(req.body.email);
     if (!user) {
@@ -53,17 +55,20 @@ exports.getUsers = async (req, res) => {
   // Validate request parameters, queries using express-validator
   // Log authorized user
   // eslint-disable-next-line no-console
-  logger.info(`controller::getUsers::reqQuery::${JSON.stringify(req.query)}::{}`);
+  logger.info(
+    `controller::getUsers::reqQuery::${JSON.stringify(req.query)}::by::${req.user.email}::{}`
+  );
 
   const page = req.query.page ? req.query.page : 1;
   const limit = req.query.limit ? req.query.limit : 10;
   try {
     const users = await UserService.getUsers({}, page, limit);
+    logger.info(`controller::getUsers::by::${req.user.email}::Users succesfully retrieved!`);
     return res.status(200).json({
       status: 200,
       data: users,
       user: req.user,
-      message: 'Succesfully Users Retrieved',
+      message: 'Users succesfully retrieved!',
     });
   } catch (e) {
     logger.error(`controller::getUsers::from::${e.from}::message::${e.message}`);

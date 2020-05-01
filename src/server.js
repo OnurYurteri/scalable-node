@@ -3,7 +3,7 @@ require('dotenv').config();
 /* Internal Services */
 const App = require('./app').App;
 const db = require('./db/service');
-const logger = require('./logger/service').server;
+const logger = require('./logger/service').app;
 
 db.connect();
 

@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const AppService = require('./service');
-const logger = require('../logger/service').server;
+const logger = require('../logger/service').app;
 
 /* Import Routes */
 const UserRoutes = require('../user/routes');
