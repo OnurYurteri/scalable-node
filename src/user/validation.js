@@ -9,7 +9,7 @@ exports.resolve = (req, res, next) => {
 };
 
 exports.login = [
-  check('email').notEmpty().isEmail().withMessage,
+  check('email').notEmpty().isEmail().withMessage('Email must be valid!'),
   check('pass').notEmpty().withMessage('Password cannot be empty!'),
 ];
 

@@ -22,6 +22,7 @@ morgan.token('remote-addr', (req) => {
   return req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 });
 app.use(morgan('short', { stream: logger.stream }));
+
 // app.use('/app', AppRoutes);
 app.use('/user', UserRoutes);
 app.use('/', (req, res) => {

@@ -13,7 +13,7 @@ exports.create = async (req, res) => {
       req.body.surname
     );
     const token = await createToken(user.toObject());
-    return res.status(200).json({ status: 500, token });
+    return res.status(200).json({ status: 200, token });
   } catch (e) {
     logger.error(`controller::create::from::${e.from}::message::${e.message}`);
     return res
