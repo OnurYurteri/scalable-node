@@ -6,10 +6,13 @@ const exprsInSec = parseInt(process.env.JWT_TOKEN_EXPR_SEC, 10) || 30;
 const { NODE_ENV } = process.env;
 
 exports.defaultPathHandler = (req, res) => {
-  if (req.url === '/' && NODE_ENV === 'development') {
+  if (NODE_ENV === 'development') {
     const message = {
       node: `${process.env.INSTANCE ? process.env.INSTANCE : 'standalone'}`,
+      requestUrl: req.url,
       headers: JSON.stringify(req.headers),
+      params: JSON.stringify(req.params),
+      query: JSON.stringify(req.query),
     };
     return res.status(200).json({
       status: 200,
