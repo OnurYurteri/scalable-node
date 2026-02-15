@@ -22,7 +22,7 @@
     "express-validator": "^6.14.2",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.5",
+    "mongoose": "^6.13.6",
     "morgan": "^1.10.0",
     "rotating-file-stream": "^2.0.2",
     "winston": "^3.2.1"
